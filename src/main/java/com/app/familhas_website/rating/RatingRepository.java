@@ -1,4 +1,7 @@
 package com.app.familhas_website.rating;
 
-public class RatingRepository {
+import java.util.UUID;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RatingRepository extends JpaRepository<RatingEntity, UUID> {
 }
