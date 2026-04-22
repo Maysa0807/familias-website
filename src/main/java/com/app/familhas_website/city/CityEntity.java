@@ -1,5 +1,6 @@
 package com.app.familhas_website.city;
 
+import com.app.familhas_website.enums.CityType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.loader.ast.internal.CacheEntityLoaderHelper;
