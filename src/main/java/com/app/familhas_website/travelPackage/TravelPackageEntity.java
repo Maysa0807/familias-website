@@ -1,27 +1,41 @@
-package com.app.familhas_website.travelPackage;
-
-import com.app.familhas_website.category.CategoryEntity;
-import com.app.familhas_website.city.CityEntity;
-import com.app.familhas_website.flight.FlightEntity;
-import com.app.familhas_website.rating.RatingEntity;
-import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.loader.ast.internal.CacheEntityLoaderHelper;
-import org.springframework.boot.autoconfigure.web.WebProperties;
-import org.springframework.security.web.server.csrf.ServerCsrfTokenRequestAttributeHandler;
+package com.app.familhas_website.travelpackage;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.app.familhas_website.category.CategoryEntity;
+import com.app.familhas_website.city.CityEntity;
+import com.app.familhas_website.enums.EntityStatus;
+import com.app.familhas_website.flight.FlightEntity;
+import com.app.familhas_website.rating.RatingEntity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "travel_packages")
-@Builder
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class TravelPackageEntity {
 
     @Id
@@ -39,7 +53,7 @@ public class TravelPackageEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private CacheEntityLoaderHelper.EntityStatus status;
+    private EntityStatus status;
 
     @Column(length = 500)
     private String imageUrl;
@@ -57,12 +71,10 @@ public class TravelPackageEntity {
     private CityEntity origin;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "destintation_city_id", nullable = false)
+    @JoinColumn(name = "destination_city_id", nullable = false)
     private CityEntity destination;
 
     @OneToMany(mappedBy = "travelPackage")
     @Builder.Default
     private List<RatingEntity> ratings = new ArrayList<>();
-
-
 }
